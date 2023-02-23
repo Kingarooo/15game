@@ -1,5 +1,7 @@
 import java.util.Scanner;
 public class Main {
+
+    //adeus
     public static void main(String[] args) {
         Scanner in = new Scanner (System.in);
         //i want the number of inversions of an N*N-1 tile sliding game
