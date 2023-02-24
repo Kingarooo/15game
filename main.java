@@ -5,7 +5,6 @@ public class main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         // i want the number of inversions of an N*N-1 tile sliding game
-        int[] board = new int[16];
         int inversions = 0;
         int numEstranho = 0;
         int index = 0;
@@ -22,6 +21,11 @@ public class main {
                     position0 = i;
                 }
             }
+        for (int k = 0; k < 5; k++) {
+            GameState board = new GameState(4);
+            board.read_board();
+            boolean resposta = Solvable(board, inversions);
+            System.out.println("Board " + (k + 1) + " is solvable: " + resposta + "\n");
         }
         return inversions;
     }
