@@ -35,14 +35,14 @@ class GameState {
 
   }
 
-  public static int Inversions(GameState board) {
+  public int Inversions() {
     int inversions = 0;
     int position0;
-    for (int i = 0; i < board.getSize(); i++) {
-      for (int j = i + 1; j < board.getSize() - 1; j++) {
-        if (board.at(i) != 0 && board.at(j) != 0 && board.at(i) > board.at(j))
+    for (int i = 0; i < this.getSize(); i++) {
+      for (int j = i + 1; j < this.getSize() - 1; j++) {
+        if (this.at(i) != 0 && this.at(j) != 0 && this.at(i) > this.at(j))
           inversions++;
-        else if (board.at(i) == 0) {
+        else if (this.at(i) == 0) {
           position0 = i;
         }
       }
@@ -50,10 +50,10 @@ class GameState {
     return inversions;
   }
 
-  public static boolean Solvable(GameState board, int inversions) {
-    for (int i = 0; i < board.getSize(); i++) {
-      for (int j = i + 1; j < board.getSize() - 1; j++) {
-        if (board.at(i) != 0 && board.at(j) != 0 && board.at(i) > board.at(j))
+  public boolean Solvable( int inversions) {
+    for (int i = 0; i < this.getSize(); i++) {
+      for (int j = i + 1; j < this.getSize() - 1; j++) {
+        if (this.at(i) != 0 && this.at(j) != 0 && this.at(i) > this.at(j))
           inversions++;
       }
     }
