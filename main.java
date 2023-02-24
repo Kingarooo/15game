@@ -7,16 +7,31 @@ public class main {
         // i want the number of inversions of an N*N-1 tile sliding game
         int inversions = 0;
         int numEstranho = 0;
+        int index = 0;
+    }
+
+    public static int Inversions(GameState board) {
+        int inversions = 0;
+        int position0;
+        for (int i = 0; i < board.getSize(); i++) {
+            for (int j = i + 1; j < board.getSize() - 1; j++) {
+                if (board.at(i) != 0 && board.at(j) != 0 && board.at(i) > board.at(j))
+                    inversions++;
+                else if (board.at(i) == 0) {
+                    position0 = i;
+                }
+            }
         for (int k = 0; k < 5; k++) {
             GameState board = new GameState(4);
             board.read_board();
         }
+        return inversions;
     }
 
-    public static boolean Solvable(int[] board, int inversions) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = i + 1; j < board.length - 1; j++) {
-                if (board[i] != 0 && board[j] != 0 && board[i] > board[j])
+    public static boolean Solvable(GameState board, int inversions) {
+        for (int i = 0; i < board.getSize(); i++) {
+            for (int j = i + 1; j < board.getSize() - 1; j++) {
+                if (board.at(i) != 0 && board.at(j) != 0 && board.at(i) > board.at(j))
                     inversions++;
             }
         }
