@@ -10,8 +10,6 @@ public class main {
         for (int k = 0; k < 5; k++) {
             GameState board = new GameState(4);
             board.read_board();
-            boolean resposta = Solvable(board, inversions);
-            System.out.println("Board " + (k + 1) + " is solvable: " + resposta + "\n");
         }
     }
 
