@@ -12,6 +12,11 @@ class GameState {
     this.board = new int[n * n];
   }
 
+  int at(int index) {
+    return board[index];
+  
+  }
+
   int getSize() {
     return size;
   }
