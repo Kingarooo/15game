@@ -25,11 +25,10 @@ class GameState {
     int index = 0;
     for (int i = 0; i < this.size; i++) {
       for (int j = 0; j < this.size; j++) {
-        if (in.hasNextInt()) {
-          this.board[index++] = in.nextInt();
-          if (this.board[index - 1] == 0)
-            this.zeroPosition = index - 1;
-        }
+        this.board[index++] = in.nextInt();
+        if (this.board[index - 1] == 0)
+          setZeroPosition(index - 1);
+
       }
     }
   }
