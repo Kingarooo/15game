@@ -12,6 +12,10 @@ class GameState {
     this.board = new int[n * n];
   }
 
+  int getSize() {
+    return size;
+  }
+
   void read_board() {
     Scanner in = new Scanner(System.in);
     int index = 0;
@@ -20,6 +24,10 @@ class GameState {
         this.board[index++] = in.nextInt();
       }
     }
+  }
+
+  void print_board() {
+
   }
 
 }
