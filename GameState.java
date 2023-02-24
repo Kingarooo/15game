@@ -1,10 +1,10 @@
 import java.util.Scanner;
-import java.util.Scanner;
 
 class GameState {
   // constructor
   private int size;
   private int[] board;
+  private int zeroPosition;
 
   public GameState(int n) {
     // create a new game
@@ -21,7 +21,7 @@ class GameState {
     return size;
   }
 
-  void read_board() {
+  public void read_board() {
     Scanner in = new Scanner(System.in);
     int index = 0;
     for (int i = 0; i < this.size; i++) {
@@ -31,10 +31,23 @@ class GameState {
     }
   }
 
+  void printBoard() {
+    int index = 0;
+    for (int i = 0; i < this.size; i++) {
+      for (int j = 0; j < this.size; j++) {
+        System.out.print(this.board[index++] + " ");
+      }
+      System.out.println();
+    }
+  }
+
   int getZeroPosition() {
     return zeroPosition;
   }
 
+  void setZeroPosition(int i) {
+    this.zeroPosition = i;
+  }
 
   public int Inversions() {
     int inversions = 0;
