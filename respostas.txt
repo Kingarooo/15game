@@ -1,10 +1,5 @@
-0
-1
-2
-2
-0
-120
-119
-118
-117
-116
+public void Solvable{
+if (this.Inversions() == (zeroPosition/4 + 1) % 2 == 0)
+    System.out.println("É solvable");
+else 
+    System.out.println("Não é solvable");
