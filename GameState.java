@@ -31,9 +31,10 @@ class GameState {
     }
   }
 
-  void print_board() {
-
+  int getZeroPosition() {
+    return zeroPosition;
   }
+
 
   public int Inversions() {
     int inversions = 0;
