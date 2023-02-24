@@ -38,7 +38,17 @@ class GameState {
     return zeroPosition;
   }
 
+  void setZeroPosition(int zeroPosition) {
+    this.zeroPosition = zeroPosition;
+  }
+
   void print_board() {
+    for (int i = 0; i < this.size; i++) {
+      for (int j = 0; j < this.size; j++) {
+        System.out.print(this.board[i * this.size + j] + " ");
+      }
+      System.out.println();
+    }
 
   }
 
