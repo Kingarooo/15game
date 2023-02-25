@@ -8,6 +8,10 @@ public class main {
             GameState board = new GameState(4);
             board.read_board(in);
             System.out.println(board.Inversions());
+            if (board.Solvable())
+                System.out.println("Solvable");
+            else
+                System.out.println("Not Solvable");
         }
         in.close();
     }

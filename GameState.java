@@ -75,26 +75,9 @@ class GameState {
     return inversions;
   }
 
-  public boolean Solvable(int inversions) {
-    for (int i = 0; i < this.getSize(); i++) {
-      for (int j = i + 1; j < this.getSize() - 1; j++) {
-        if (this.at(i) != 0 && this.at(j) != 0 && this.at(i) > this.at(j))
-          inversions++;
-      }
-    }
+  public boolean Solvable() {
+    return (Inversions() % 2 == 0);
 
-    System.out.println(inversions);
-    return inversions % 2 == 0;
   }
 
-  private static int findBlankRow(int[][] puzzle) {
-    for (int i = 0; i < puzzle.length; i++) {
-      for (int j = 0; j < puzzle.length; j++) {
-        if (puzzle[i][j] == 0) {
-          return i;
-        }
-      }
-    }
-    return 0;
-  }
 }
