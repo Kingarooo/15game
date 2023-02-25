@@ -26,6 +26,8 @@ class GameState {
     for (int i = 0; i < this.size; i++) {
       for (int j = 0; j < this.size; j++) {
         this.board[index++] = in.nextInt();
+        if (this.board[index - 1] == 0)
+          setZeroPosition(index - 1);
       }
     }
   }
@@ -80,6 +82,7 @@ class GameState {
           inversions++;
       }
     }
+
     System.out.println(inversions);
     return inversions % 2 == 0;
   }
