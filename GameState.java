@@ -65,7 +65,7 @@ class GameState {
 
       int count = 0;
       for (int j = i + 1; j < this.getSize() * this.getSize(); j++) {
-        if (at(i) > at(j)) {
+        if (!isZero(i) && !isZero(j) && at(i) > at(j)) {
           count++;
         }
       }
@@ -87,15 +87,14 @@ class GameState {
     return inversions % 2 == 0;
   }
 
-}
-
-
-
-private static int findBlankRow(int[][] puzzle) {
-  for (int i = 0; i < puzzle.length; i++) {
+  private static int findBlankRow(int[][] puzzle) {
+    for (int i = 0; i < puzzle.length; i++) {
       for (int j = 0; j < puzzle.length; j++) {
-          if (puzzle[i][j] == 0) {
-              return i;
-          }
+        if (puzzle[i][j] == 0) {
+          return i;
+        }
       }
+    }
+    return 0;
   }
+}
