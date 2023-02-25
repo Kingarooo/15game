@@ -57,15 +57,13 @@ class GameState {
     int inversions = 0;
     for (int i = 0; i < this.getSize() * this.getSize(); i++) {
       if (isZero(i)) {
-        inversions += i / this.getSize() + 1;
+        inversions += ((i / this.getSize()) + 1);
         continue;
       }
 
       int count = 0;
       for (int j = i + 1; j < this.getSize() * this.getSize(); j++) {
-        if (isZero(j)) {
-          continue;
-        } else if (at(i) > at(j)) {
+        if (at(i) > at(j)) {
           count++;
         }
       }
