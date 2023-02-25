@@ -7,8 +7,9 @@ public class main {
         for (int k = 0; k < 10; k++) {
             GameState board = new GameState(4);
             board.read_board(in);
+            System.out.println(board.Inversions());
         }
-
+        in.close();
     }
 
 }

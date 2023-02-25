@@ -54,14 +54,18 @@ class GameState {
 
   public int Inversions() {
     int inversions = 0;
-    for (int i = 0; i < this.getSize(); i++) {
-      for (int j = i + 1; j < this.getSize() - 1; j++) {
-        if (this.at(i) != 0 && this.at(j) != 0 && this.at(i) > this.at(j))
-          inversions++;
-        else if (this.at(i) == 0) {
-          setZeroPosition(i);
+    for (int i = 0; i < this.getSize() * this.getSize(); i++) {
+      if (isZero(i))
+        inversions += i / this.getSize() + 1;
+      int count = 0;
+      for (int j = i + 1; j < this.getSize() * this.getSize(); j++) {
+        if (isZero(j)) {
+          continue;
+        } else if (at(i) > at(j)) {
+          count++;
         }
       }
+      inversions += count;
     }
     return inversions;
   }
