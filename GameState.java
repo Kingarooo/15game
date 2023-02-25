@@ -87,3 +87,14 @@ class GameState {
   }
 
 }
+
+
+
+private static int findBlankRow(int[][] puzzle) {
+  for (int i = 0; i < puzzle.length; i++) {
+      for (int j = 0; j < puzzle.length; j++) {
+          if (puzzle[i][j] == 0) {
+              return i;
+          }
+      }
+  }
