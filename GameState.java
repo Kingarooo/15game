@@ -48,15 +48,18 @@ class GameState {
     this.zeroPosition = i;
   }
 
+  boolean isZero(int i) {
+    return getZeroPosition() == i;
+  }
+
   public int Inversions() {
     int inversions = 0;
-    int position0;
     for (int i = 0; i < this.getSize(); i++) {
       for (int j = i + 1; j < this.getSize() - 1; j++) {
         if (this.at(i) != 0 && this.at(j) != 0 && this.at(i) > this.at(j))
           inversions++;
         else if (this.at(i) == 0) {
-          position0 = i;
+          setZeroPosition(i);
         }
       }
     }
