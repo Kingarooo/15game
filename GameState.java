@@ -75,8 +75,15 @@ class GameState {
     return inversions;
   }
 
-  public boolean Solvable() {
-    return (Inversions() % 2 == 0);
+  public boolean isSolvable() {
+    if ((size % 2) == 1)
+      return (Inversions() % 2 == 0);
+    else if (Inversions() % 2 == 0 && ((zeroPosition / size) + 1) % 2 == 1) {
+      return true;
+    } else if (Inversions() % 2 == 1 && ((zeroPosition / size) + 1) % 2 == 0) {
+      return true;
+    } else
+      return false;
 
   }
 
