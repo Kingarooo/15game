@@ -21,6 +21,18 @@ class Node {
     this.children = state.getSuccessors();
   }
 
+  Node[] getChildren() {
+    return this.children;
+  }
+
+  void setDepth(int depth) {
+    this.depth = depth;
+  }
+
+  int getDepth() {
+    return this.depth;
+  }
+
   @Override
   public String toString() {
     return state.toString();
