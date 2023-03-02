@@ -17,8 +17,8 @@ class Node {
     this.parent = parent;
   }
 
-  void setChildren(Node[] children) {
-    this.children = children;
+  void setChildren() {
+    this.children = state.getSuccessors();
   }
 
   @Override

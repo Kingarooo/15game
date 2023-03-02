@@ -15,8 +15,11 @@ class GameState {
   @Override
   public String toString() {
     String s = "";
-    for (int i = 0; i < this.size * this.size; i++) {
-      s += this.board[i] + " ";
+    for (int i = 0; i < this.size; i++) {
+      for (int j = 0; j < this.size; j++) {
+        s += this.board[i * this.size + j] + " ";
+      }
+      s += "\n";
     }
     return s;
   }
@@ -122,15 +125,16 @@ class GameState {
       for (int j = 0; j < this.size * this.size; j++) {
         newState.board[j] = this.board[j];
       }
-      System.out.println(newState);
       newState.board[zeroPosition] = newState.board[moves[i]];
       newState.board[moves[i]] = 0;
       newState.setZeroPosition(moves[i]);
       successors[i] = new Node(newState);
+
     }
     for (int i = 0; i < successors.length; i++) {
       successors[i].setParent(new Node(this));
     }
+
     return successors;
   }
 }
