@@ -29,6 +29,10 @@ class Node {
     return this.depth;
   }
 
+  boolean equals(Node node) {
+    return this.state.equals(node.state);
+  }
+
   @Override
   public String toString() {
     return state.toString();
