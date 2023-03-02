@@ -1,5 +1,6 @@
 class Tree {
   private Node root;
+  private int size;
 
   Tree() {
     this.root = null;

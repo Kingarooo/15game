@@ -17,10 +17,6 @@ class Node {
     this.parent = parent;
   }
 
-  void setChildren() {
-    this.children = state.getSuccessors();
-  }
-
   Node[] getChildren() {
     return this.children;
   }

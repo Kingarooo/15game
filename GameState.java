@@ -12,6 +12,21 @@ class GameState {
     this.board = new int[n * n];
   }
 
+  public GameState(int n, int[] board) {
+    // create a new game
+    this.size = n;
+    this.board = board;
+  }
+
+  public GameState(GameState state) {
+    this.size = state.getSize();
+    this.board = new int[size * size];
+    for (int i = 0; i < size * size; i++) {
+      this.board[i] = state.at(i);
+    }
+    this.zeroPosition = state.getZeroPosition();
+  }
+
   @Override
   public String toString() {
     String s = "";
@@ -117,9 +132,9 @@ class GameState {
     return moves;
   }
 
-  public Node[] getSuccessors() {
+  public GameState[] getSuccessors() {
     int[] moves = possibleMoves();
-    Node[] successors = new Node[moves.length];
+    GameState[] successors = new GameState[moves.length];
     for (int i = 0; i < moves.length; i++) {
       GameState newState = new GameState(this.size);
       for (int j = 0; j < this.size * this.size; j++) {
@@ -128,11 +143,8 @@ class GameState {
       newState.board[zeroPosition] = newState.board[moves[i]];
       newState.board[moves[i]] = 0;
       newState.setZeroPosition(moves[i]);
-      successors[i] = new Node(newState);
+      successors[i] = new GameState(newState);
 
-    }
-    for (int i = 0; i < successors.length; i++) {
-      successors[i].setParent(new Node(this));
     }
 
     return successors;
