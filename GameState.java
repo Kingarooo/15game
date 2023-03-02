@@ -132,6 +132,15 @@ class GameState {
     return moves;
   }
 
+  boolean equals(GameState state) {
+    for (int i = 0; i < this.size * this.size; i++) {
+      if (this.board[i] != state.at(i)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public GameState[] getSuccessors() {
     int[] moves = possibleMoves();
     GameState[] successors = new GameState[moves.length];

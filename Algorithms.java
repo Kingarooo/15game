@@ -14,4 +14,7 @@ class Astar {
     this.goal = goal;
   }
 
+  public void search() {
+    queue.add(new Node(initial));
+  }
 }
