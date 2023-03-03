@@ -11,18 +11,21 @@ public class main {
             board.read_board(in);
             goalboard.read_board(in);
             GameState successors[] = board.getSuccessors();
-            
+
             for (int i = 0; i < successors.length; i++) {
                 System.out.println(successors[i]);
-            }if (modoPesquisa.equals("BFS")) {
-            // GameState.BFS();
-        } 
-        else {
-            System.out.println("Invalid search algorithm selected.");
-            return;
+            }
+            if (modoPesquisa.equals("BFS")) {
+                // GameState.BFS();
+                // BFS bfs = new BFS(board, goalboard);
+                // bfs.search();
+
+            } else {
+                System.out.println("Invalid search algorithm selected.");
+                return;
+            }
         }
-        }
-        
+
         in.close();
     }
 
