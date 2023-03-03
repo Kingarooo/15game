@@ -154,7 +154,6 @@ class GameState {
       newState.board[moves[i]] = 0;
       newState.setZeroPosition(moves[i]);
       successors[i] = new GameState(newState);
-
     }
 
     return successors;

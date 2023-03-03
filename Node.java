@@ -13,6 +13,13 @@ class Node {
     this.cost = 0;
   }
 
+  Node(GameState state, int depth) {
+    this.state = state;
+    this.parent = null;
+
+    this.depth = depth;
+    this.cost = 0;
+  }
   void setParent(Node parent) {
     this.parent = parent;
   }
