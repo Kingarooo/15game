@@ -2,7 +2,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.HashSet;
+import java.util.Stack;
 
 class Astar {
   public PriorityQueue<Node> queue;
@@ -28,7 +28,7 @@ class BFS {
   public Queue<Node> queue = new LinkedList<>();
   private GameState initial; // initial state
   private GameState goal; // goal state
-  private HashSet<GameState> mapa; // map of visited states
+  private Stack<GameState> mapa; // map of visited states
   private long visited; // number of visited states
   private long gerados; // number of generated states
   private long startime;
@@ -52,15 +52,14 @@ class BFS {
       if (queue.equals(goal)) {             //if goal found
         System.out.println("Goal found!");
         return;
-      } else {    
-                              // if goal not found
+      } else {           // if goal not found
           // for(GameState tabu: node.getState().getSucessors(mapa)){ // for each sucessor of the current state
-          //   Node aux = new Node(tabu, node.altura+1,3,target);
-          //   ++nosGerados;
-          //   queue.add(aux);
-          // }
+            // Node aux = new Node(tabu, node.getDepth()+1); 
+            ++gerados;
+            // queue.add(aux);
+          }
 
       }
     }
   }
-}
+// }
