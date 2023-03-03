@@ -1,19 +1,8 @@
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.rmi.server.SocketSecurityException;
 import java.util.LinkedList;
 import java.util.Stack;
-
-class DFS {
-
-  private GameState initial;
-  private GameState goal;
-
-  public DFS(GameState initial, GameState goal) {
-    this.initial = initial;
-    this.goal = goal;
-  }
-
-}
 
 class Greedy {
   public PriorityQueue<Node> queue;
@@ -110,3 +99,54 @@ class BFS {
 
   }
 }
+
+class DFS {
+  private GameState initial;
+  private GameState goal;
+  private Stack<GameState> mapa; // map of visited states
+  private long visited; // number of visited states
+  private long gerados; // number of generated states
+
+  public DFS(GameState initial, GameState goal) {
+    this.initial = initial;
+    this.goal = goal;
+    this.visited = 0;
+    this.gerados = 0;
+    this.mapa = new Stack<GameState>();
+  }
+
+  public void searchDFS() {
+    Stack<Node> stack = new Stack<Node>();
+    stack.push(new Node(initial));
+    while (!stack.isEmpty()) {
+      Node node = stack.pop();
+      if (node.getState().equals(goal)) {
+        while (node.getParent() != null) {
+          System.out.println(node.getState().toString());
+          node = node.getParent();
+        }
+        System.out.println("Goal found!");
+        System.out.println("Number of visited states: " + visited);
+        System.out.println("Number of generated states: " + gerados);
+        System.out.println("Depth: " + node.getDepth());
+        return;
+      } else {
+        LinkedList<Node> successors = new LinkedList<Node>();
+        ++visited;
+        // if (Node.getState().getSuccessors.size() == 0) {
+          // backtrack to the previous state
+          continue;
+        }
+        // for (Node tabu : successors) {
+          // tabu.setParent(node);
+          // ++gerados;
+          // stack.push(tabu);
+        }
+        if (stack.size() > 10) {
+          mapa = new Stack<GameState>();
+          System.gc();
+        }
+      }
+    }
+  }
+
