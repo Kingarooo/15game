@@ -71,7 +71,7 @@ class BFS {
     this.visited = 0;
     this.gerados = 0;
     this.startime = System.currentTimeMillis();
-    this.mapa = new Stack<>();
+    this.mapa = new Stack<GameState>();
   }
 
   public void search() { // search for a solution
@@ -98,6 +98,12 @@ class BFS {
           Node aux = new Node(tabu, node.getDepth() + 1);
           ++gerados;
           queue.add(aux);
+          if (!mapa.isEmpty()) {
+            System.out.println("Teste");
+            System.out.println(mapa.peek());
+            if (mapa.contains(tabu))
+              mapa.remove(tabu);
+          }
         }
 
       }
