@@ -156,7 +156,10 @@ class GameState {
       newState.board[zeroPosition] = newState.board[moves[i]];
       newState.board[moves[i]] = 0;
       newState.setZeroPosition(moves[i]);
-      if (!visited.peek().equals(newState))
+
+      if (visited.isEmpty())
+        successors.add(newState);
+      else if (!visited.peek().equals(newState))
         successors.add(newState);
 
     }

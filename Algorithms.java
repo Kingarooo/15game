@@ -70,7 +70,8 @@ class BFS {
     this.goal = goal;
     this.visited = 0;
     this.gerados = 0;
-
+    this.startime = System.currentTimeMillis();
+    this.mapa = new Stack<>();
   }
 
   public void search() { // search for a solution
@@ -86,7 +87,7 @@ class BFS {
         System.out.println("Number of generated states: " + gerados);
         System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
         System.out.println("Depth: " + node.getDepth());
-        for(int i = 0; i < mapa.size(); i++) {
+        for (int i = 0; i < mapa.size(); i++) {
           System.out.println(mapa.get(i));
         }
         return;

@@ -12,8 +12,14 @@ public class main {
             goalboard.read_board(in);
 
             if (modoPesquisa.equals("BFS")) {
-                BFS bfs = new BFS(board, goalboard);
-                bfs.search();
+                if (board.isSolvable() == goalboard.isSolvable()) {
+                    BFS bfs = new BFS(board, goalboard);
+                    bfs.search();
+                } else {
+
+                    System.out.println("No solution");
+                    return;
+                }
 
             } else {
                 System.out.println("Invalid search algorithm selected.");
