@@ -82,17 +82,25 @@ class BFS {
 
       if (queue.equals(goal)) { // if goal found
         System.out.println("Goal found!");
+        System.out.println("Number of visited states: " + visited);
+        System.out.println("Number of generated states: " + gerados);
+        System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
+        System.out.println("Depth: " + node.getDepth());
+        for(int i = 0; i < mapa.size(); i++) {
+          System.out.println(mapa.get(i));
+        }
         return;
       } else { // if goal not found
         LinkedList<GameState> sucessors = new LinkedList<>();
-        sucessors = node.getState().getSucessors(mapa);
-        for(GameState tabu: node.getState().getSucessors(mapa)){ // for each sucessor of the current state
-        Node aux = new Node(tabu, node.getDepth()+1);
-        ++gerados;
-        // queue.add(aux);
-      }
+        sucessors = node.getState().getSuccessors(mapa);
+        for (GameState tabu : sucessors) { // for each sucessor of the current state
+          Node aux = new Node(tabu, node.getDepth() + 1);
+          ++gerados;
+          queue.add(aux);
+        }
 
+      }
     }
+
   }
 }
-// }
