@@ -20,8 +20,17 @@ class Node {
     this.depth = depth;
     this.cost = 0;
   }
+
   void setParent(Node parent) {
     this.parent = parent;
+  }
+
+  Node getParent() {
+    return this.parent;
+  }
+
+  void setChildren(Node[] children) {
+    this.children = children;
   }
 
   Node[] getChildren() {

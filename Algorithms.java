@@ -76,15 +76,17 @@ class BFS {
 
   public void search() { // search for a solution
     int count = 0;
+    Stack<GameState> visited_states = new Stack<GameState>();
     queue.offer(new Node(initial)); // add initial state to queue
     while (!queue.isEmpty()) { // while queue is not empty
       Node node = queue.poll(); // get first element of queue
-      mapa.add(node.getState());
+      visited_states.push(node.getState());
       ++gerados; // increment number of generated states
 
       if (node.getState().equals(goal)) { // if goal found
-        for (int i = 0; i < mapa.size(); i++) {
-          System.out.println(mapa.get(i));
+        while (node.getParent() != null) { // while node has a parent
+          System.out.println(node.getState().toString());
+          node = node.getParent();
         }
         System.out.println("Goal found!");
         System.out.println("Number of visited states: " + visited);
@@ -93,13 +95,14 @@ class BFS {
         System.out.println("Depth: " + node.getDepth());
         return;
       } else { // if goal not found
-        LinkedList<GameState> sucessors = new LinkedList<>();
-        sucessors = node.getState().getSuccessors(mapa);
+        LinkedList<Node> sucessors = new LinkedList<Node>();
+        sucessors = node.getState().getSuccessors(visited_states);
         ++visited; // increment number of visited states
-        for (GameState tabu : sucessors) { // for each sucessor of the current state
-          Node aux = new Node(tabu, node.getDepth() + 1);
+        for (Node tabu : sucessors) { // for each sucessor of the current state
+
+          tabu.setParent(node);
           ++gerados;
-          queue.add(aux);
+          queue.add(tabu);
         }
 
       }

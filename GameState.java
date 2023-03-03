@@ -149,9 +149,9 @@ class GameState {
     return true;
   }
 
-  public LinkedList<GameState> getSuccessors(Stack<GameState> visited) {
+  public LinkedList<Node> getSuccessors(Stack<GameState> visited) {
     int[] moves = possibleMoves();
-    LinkedList<GameState> successors = new LinkedList<GameState>();
+    LinkedList<Node> successors = new LinkedList<Node>();
     for (int i = 0; i < moves.length; i++) {
       GameState newState = new GameState(this.size);
       for (int j = 0; j < this.size * this.size; j++) {
@@ -160,15 +160,10 @@ class GameState {
       newState.board[zeroPosition] = newState.board[moves[i]];
       newState.board[moves[i]] = 0;
       newState.setZeroPosition(moves[i]);
-
-      if (visited.isEmpty())
-        successors.add(newState);
-      else if (!visited.contains(newState))
-        successors.add(newState);
+      if (!visited.contains(newState))
+        successors.add(new Node(newState));
 
     }
-
     return successors;
   }
-
 }
