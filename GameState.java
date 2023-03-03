@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Stack;
+import java.util.LinkedList;
 
 class GameState {
   // constructor
@@ -143,9 +145,9 @@ class GameState {
     return true;
   }
 
-  public GameState[] getSuccessors() {
+  public LinkedList<GameState> getSuccessors(Stack visited) {
     int[] moves = possibleMoves();
-    GameState[] successors = new GameState[moves.length];
+    LinkedList<GameState> successors = new LinkedList<GameState>();
     for (int i = 0; i < moves.length; i++) {
       GameState newState = new GameState(this.size);
       for (int j = 0; j < this.size * this.size; j++) {
@@ -154,7 +156,9 @@ class GameState {
       newState.board[zeroPosition] = newState.board[moves[i]];
       newState.board[moves[i]] = 0;
       newState.setZeroPosition(moves[i]);
-      successors[i] = new GameState(newState);
+      if (!visited.peek().equals(newState))
+        successors.add(newState);
+
     }
 
     return successors;

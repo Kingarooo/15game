@@ -10,11 +10,7 @@ public class main {
             GameState goalboard = new GameState(4);
             board.read_board(in);
             goalboard.read_board(in);
-            GameState successors[] = board.getSuccessors();
 
-            for (int i = 0; i < successors.length; i++) {
-                System.out.println(successors[i]);
-            }
             if (modoPesquisa.equals("BFS")) {
                 // GameState.BFS();
                 // BFS bfs = new BFS(board, goalboard);
