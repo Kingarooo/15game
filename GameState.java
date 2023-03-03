@@ -133,7 +133,11 @@ class GameState {
     if (zeroPosition / size != size - 1) {
       moves[index++] = zeroPosition + size;
     }
-    return moves;
+    int[] result = new int[index];
+    for (int i = 0; i < index; i++) {
+      result[i] = moves[i];
+    }
+    return result;
   }
 
   boolean equals(GameState state) {
@@ -159,7 +163,7 @@ class GameState {
 
       if (visited.isEmpty())
         successors.add(newState);
-      else if (!visited.peek().equals(newState))
+      else if (!visited.contains(newState))
         successors.add(newState);
 
     }

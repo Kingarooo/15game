@@ -78,32 +78,28 @@ class BFS {
     int count = 0;
     queue.offer(new Node(initial)); // add initial state to queue
     while (!queue.isEmpty()) { // while queue is not empty
-      Node node = queue.poll(); // remove first element from queue
+      Node node = queue.poll(); // get first element of queue
+      mapa.add(node.getState());
       ++gerados; // increment number of generated states
 
-      if (queue.equals(goal)) { // if goal found
+      if (node.getState().equals(goal)) { // if goal found
+        for (int i = 0; i < mapa.size(); i++) {
+          System.out.println(mapa.get(i));
+        }
         System.out.println("Goal found!");
         System.out.println("Number of visited states: " + visited);
         System.out.println("Number of generated states: " + gerados);
         System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
         System.out.println("Depth: " + node.getDepth());
-        for (int i = 0; i < mapa.size(); i++) {
-          System.out.println(mapa.get(i));
-        }
         return;
       } else { // if goal not found
         LinkedList<GameState> sucessors = new LinkedList<>();
         sucessors = node.getState().getSuccessors(mapa);
+        ++visited; // increment number of visited states
         for (GameState tabu : sucessors) { // for each sucessor of the current state
           Node aux = new Node(tabu, node.getDepth() + 1);
           ++gerados;
           queue.add(aux);
-          if (!mapa.isEmpty()) {
-            System.out.println("Teste");
-            System.out.println(mapa.peek());
-            if (mapa.contains(tabu))
-              mapa.remove(tabu);
-          }
         }
 
       }
