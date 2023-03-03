@@ -29,6 +29,10 @@ class Node {
     return this.depth;
   }
 
+  GameState getState() {
+    return this.state;
+  }
+
   boolean equals(Node node) {
     return this.state.equals(node.state);
   }

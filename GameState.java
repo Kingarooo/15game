@@ -5,21 +5,17 @@ class GameState {
   private int size;
   private int[] board;
   private int zeroPosition;
-  private int [] goalboard;
-  private int goalzeroPosition;
 
   public GameState(int n) {
     // create a new game
     this.size = n;
     this.board = new int[n * n];
-    this.goalboard = new int[n * n];
   }
 
   public GameState(int n, int[] board) {
     // create a new game
     this.size = n;
     this.board = board;
-    this.goalboard = goalboard;
   }
 
   public GameState(GameState state) {
@@ -27,7 +23,7 @@ class GameState {
     this.board = new int[size * size];
     for (int i = 0; i < size * size; i++) {
       this.board[i] = state.at(i);
-      
+
     }
     this.zeroPosition = state.getZeroPosition();
   }
@@ -164,12 +160,4 @@ class GameState {
     return successors;
   }
 
-  public boolean isGoalState() {
-    for (int i = 0; i < size * size; i++) {
-      if (board[i] != goalboard[i]) {
-        return false;
-      }
-    }
-    return true;
-  }
 }

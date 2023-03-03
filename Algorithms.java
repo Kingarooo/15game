@@ -2,9 +2,11 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.HashSet;
+
 class Astar {
   public PriorityQueue<Node> queue;
-  public Queue <Node> queue2;
+  public Queue<Node> queue2;
   private GameState initial;
   private GameState goal;
 
@@ -21,22 +23,44 @@ class Astar {
     queue.add(new Node(initial));
   }
 }
-class BFS{
-  Queue <Node> queue = new LinkedList<Node>();
-  Set<GameState> visited = new HashSet<GameState>();
-  private GameState initial;
-  private GameState goal;
 
-  public void BFS (GameState initial, GameState goal) {
+class BFS {
+  public Queue<Node> queue = new LinkedList<>();
+  private GameState initial; // initial state
+  private GameState goal; // goal state
+  private HashSet<GameState> mapa; // map of visited states
+  private long visited; // number of visited states
+  private long gerados; // number of generated states
+  private long startime;
+
+  public void BFS(GameState initial, GameState goal) {
     this.queue = new LinkedList<>();
     this.initial = initial;
     this.goal = goal;
-  }
-  public void search() {
-  queue.offer(new Node(initial));
-  visited.add(initial);
-  while (!queue.isEmpty()) {
+    this.visited = 0;
+    this.gerados = 0;
 
   }
-}
+
+  public void search() { // search for a solution
+    int count = 0;  
+    queue.offer(new Node(initial));  // add initial state to queue  
+    while (!queue.isEmpty()) { // while queue is not empty
+      Node node = queue.poll(); // remove first element from queue
+      ++gerados; // increment number of generated states
+
+      if (queue.equals(goal)) {             //if goal found
+        System.out.println("Goal found!");
+        return;
+      } else {    
+                              // if goal not found
+          // for(GameState tabu: node.getState().getSucessors(mapa)){ // for each sucessor of the current state
+          //   Node aux = new Node(tabu, node.altura+1,3,target);
+          //   ++nosGerados;
+          //   queue.add(aux);
+          // }
+
+      }
+    }
+  }
 }
