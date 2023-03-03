@@ -66,8 +66,8 @@ class GameState {
     int index = 0;
     for (int i = 0; i < this.size; i++) {
       for (int j = 0; j < this.size; j++) {
-        //print the board with - limiting the board and | separating the columns 
-        System.out.print("| " + this.board[index++] + " |"); 
+        // print the board with - limiting the board and | separating the columns
+        System.out.print("| " + this.board[index++] + " |");
       }
       System.out.println();
     }
@@ -145,7 +145,7 @@ class GameState {
     return true;
   }
 
-  public LinkedList<GameState> getSuccessors(Stack visited) {
+  public LinkedList<GameState> getSuccessors(Stack<GameState> visited) {
     int[] moves = possibleMoves();
     LinkedList<GameState> successors = new LinkedList<GameState>();
     for (int i = 0; i < moves.length; i++) {
