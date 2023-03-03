@@ -64,7 +64,8 @@ class GameState {
     int index = 0;
     for (int i = 0; i < this.size; i++) {
       for (int j = 0; j < this.size; j++) {
-        System.out.print(this.board[index++] + " ");
+        //print the board with - limiting the board and | separating the columns 
+        System.out.print(this.board[index++] + " "); 
       }
       System.out.println();
     }
