@@ -85,9 +85,10 @@ class BFS {
         System.out.println("Goal found!");
         return;
       } else { // if goal not found
-        // for(GameState tabu: node.getState().getSucessors(mapa)){ // for each sucessor
-        // of the current state
-        // Node aux = new Node(tabu, node.getDepth()+1);
+        LinkedList<GameState> sucessors = new LinkedList<>();
+        sucessors = node.getState().getSucessors(mapa);
+        for(GameState tabu: node.getState().getSucessors(mapa)){ // for each sucessor of the current state
+        Node aux = new Node(tabu, node.getDepth()+1);
         ++gerados;
         // queue.add(aux);
       }
