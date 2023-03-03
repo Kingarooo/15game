@@ -12,9 +12,8 @@ public class main {
             goalboard.read_board(in);
 
             if (modoPesquisa.equals("BFS")) {
-                // GameState.BFS();
-                // BFS bfs = new BFS(board, goalboard);
-                // bfs.search();
+                BFS bfs = new BFS(board, goalboard);
+                bfs.search();
 
             } else {
                 System.out.println("Invalid search algorithm selected.");

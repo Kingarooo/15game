@@ -43,7 +43,6 @@ class BFS {
   }
 
   public void search() { // search for a solution
-    int count = 0;  
     queue.offer(new Node(initial));  // add initial state to queue  
     while (!queue.isEmpty()) { // while queue is not empty
       Node node = queue.poll(); // remove first element from queue
