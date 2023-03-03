@@ -4,6 +4,38 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.Stack;
 
+class DFS {
+
+  private GameState initial;
+  private GameState goal;
+
+  public DFS(GameState initial, GameState goal) {
+    this.initial = initial;
+    this.goal = goal;
+  }
+
+}
+
+class Greedy {
+  public PriorityQueue<Node> queue;
+  public Queue<Node> queue2;
+  private GameState initial;
+  private GameState goal;
+
+  private int expandedNodes = 0;
+  private int generatedNodes = 0;
+
+  public Greedy(GameState initial, GameState goal) {
+    this.queue = new PriorityQueue<Node>();
+    this.initial = initial;
+    this.goal = goal;
+  }
+
+  public void search() {
+    queue.add(new Node(initial));
+  }
+}
+
 class Astar {
   public PriorityQueue<Node> queue;
   public Queue<Node> queue2;
@@ -33,7 +65,7 @@ class BFS {
   private long gerados; // number of generated states
   private long startime;
 
-  public void BFS(GameState initial, GameState goal) {
+  public BFS(GameState initial, GameState goal) {
     this.queue = new LinkedList<>();
     this.initial = initial;
     this.goal = goal;
@@ -43,23 +75,24 @@ class BFS {
   }
 
   public void search() { // search for a solution
-    int count = 0;  
-    queue.offer(new Node(initial));  // add initial state to queue  
+    int count = 0;
+    queue.offer(new Node(initial)); // add initial state to queue
     while (!queue.isEmpty()) { // while queue is not empty
       Node node = queue.poll(); // remove first element from queue
       ++gerados; // increment number of generated states
 
-      if (queue.equals(goal)) {             //if goal found
+      if (queue.equals(goal)) { // if goal found
         System.out.println("Goal found!");
         return;
-      } else {           // if goal not found
-          // for(GameState tabu: node.getState().getSucessors(mapa)){ // for each sucessor of the current state
-            // Node aux = new Node(tabu, node.getDepth()+1); 
-            ++gerados;
-            // queue.add(aux);
-          }
-
+      } else { // if goal not found
+        // for(GameState tabu: node.getState().getSucessors(mapa)){ // for each sucessor
+        // of the current state
+        // Node aux = new Node(tabu, node.getDepth()+1);
+        ++gerados;
+        // queue.add(aux);
       }
+
     }
   }
+}
 // }
