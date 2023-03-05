@@ -19,6 +19,21 @@ class Greedy {
     this.goal = goal;
   }
 
+  int manhattanDistance(GameState state) {
+    int distance = 0;
+    for (int i = 0; i < state.getSize() * state.getSize(); i++) {
+      int value = state.at(i);
+      if (value != 0) {
+        int row = i / state.getSize();
+        int col = i % state.getSize();
+        int goalRow = (value - 1) / this.goal.getSize();
+        int goalCol = (value - 1) % this.goal.getSize();
+        distance += Math.abs(row - goalRow) + Math.abs(col - goalCol);
+      }
+    }
+    return distance;
+  }
+
   public void search() {
     queue.add(new Node(initial));
   }
