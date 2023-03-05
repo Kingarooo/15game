@@ -131,19 +131,17 @@ class DFS {
         LinkedList<Node> successors = new LinkedList<Node>();
         ++visited;
         // if (Node.getState().getSuccessors.size() == 0) {
-          // backtrack to the previous state
-          continue;
-        }
-        // for (Node tabu : successors) {
-          // tabu.setParent(node);
-          // ++gerados;
-          // stack.push(tabu);
-        }
-        if (stack.size() > 10) {
-          mapa = new Stack<GameState>();
-          System.gc();
-        }
+        // backtrack to the previous state
+        continue;
       }
+      // for (Node tabu : successors) {
+      // tabu.setParent(node);
+      // ++gerados;
+      // stack.push(tabu);
+    }
+    if (stack.size() > 10) {
+      mapa = new Stack<GameState>();
+      System.gc();
     }
   }
-
+}
