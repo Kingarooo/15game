@@ -59,7 +59,6 @@ class BFS {
   public Queue<Node> queue = new LinkedList<>();
   private GameState initial; // initial state
   private GameState goal; // goal state
-  private Stack<GameState> mapa; // map of visited states
   private long visited; // number of visited states
   private long gerados; // number of generated states
   private long startime;
@@ -71,11 +70,9 @@ class BFS {
     this.visited = 0;
     this.gerados = 0;
     this.startime = System.currentTimeMillis();
-    this.mapa = new Stack<GameState>();
   }
 
   public void search() { // search for a solution
-    int count = 0;
     Stack<GameState> visited_states = new Stack<GameState>();
     queue.offer(new Node(initial)); // add initial state to queue
     while (!queue.isEmpty()) { // while queue is not empty
