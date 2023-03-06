@@ -33,6 +33,23 @@ class Greedy {
     }
     return distance;
   }
+  
+  int misplaced (GameState state) {
+    int count = 0;
+    for (int i = 0; i < state.getSize() * state.getSize(); i++) {
+      int value = state.at(i);
+      if (value != 0) {
+        int row = i / state.getSize();
+        int col = i % state.getSize();
+        int goalRow = (value - 1) / this.goal.getSize();
+        int goalCol = (value - 1) % this.goal.getSize();
+        if (row != goalRow || col != goalCol) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
 
   public void search() {
     queue.add(new Node(initial));
