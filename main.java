@@ -30,24 +30,24 @@ public class main {
                     System.out.println("No solution");
                     return;
                 }
-            // }
-            // if (modoPesquisa.equals("A*")) {
-            //     if (board.isSolvable() == goalboard.isSolvable()) {
-            //         A* a* = new A*(board, goalboard);
-            //         A*.searchA*();
-            //     } else {
-            //         System.out.println("No solution");
-            //         return;
-            //     }
-            //     if (modoPesquisa.equals("Greedy")) {
-            //         if (board.isSolvable() == goalboard.isSolvable()) {
-            //             Greedy greedy = new Greedy(board, goalboard);
-            //             greedy.searchGreedy();
-            //         } else {
-            //             System.out.println("No solution");
-            //             return;
-            //         }
                 // }
+                // if (modoPesquisa.equals("A*")) {
+                // if (board.isSolvable() == goalboard.isSolvable()) {
+                // A* a* = new A*(board, goalboard);
+                // A*.searchA*();
+                // } else {
+                // System.out.println("No solution");
+                // return;
+                // }
+                if (modoPesquisa.equals("Greedy")) {
+                    if (board.isSolvable() == goalboard.isSolvable()) {
+                        Greedy greedy = new Greedy(board, goalboard);
+                        greedy.search();
+                    } else {
+                        System.out.println("No solution");
+                        return;
+                    }
+                }
             } else {
                 System.out.println("Invalid search algorithm selected.");
                 return;

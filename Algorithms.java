@@ -5,8 +5,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 class Greedy {
-  public PriorityQueue<Node> queue;
-  public Queue<Node> queue2;
+  public LinkedList<Node> queue;
   private GameState initial;
   private GameState goal;
 
@@ -14,7 +13,6 @@ class Greedy {
   private int generatedNodes = 0;
 
   public Greedy(GameState initial, GameState goal) {
-    this.queue = new PriorityQueue<Node>();
     this.initial = initial;
     this.goal = goal;
   }
@@ -35,7 +33,7 @@ class Greedy {
   }
 
   public void search() {
-    queue.add(new Node(initial));
+
   }
 }
 
