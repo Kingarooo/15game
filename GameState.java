@@ -115,7 +115,6 @@ class GameState {
       return true;
     } else
       return false;
-
   }
 
   public int[] possibleMoves() {
