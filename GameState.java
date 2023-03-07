@@ -90,7 +90,7 @@ class GameState {
     int inversions = 0;
     for (int i = 0; i < this.getSize() * this.getSize(); i++) {
       if (isZero(i)) {
-        inversions += ((i / this.getSize()) + 1);
+        // inversions += ((i / this.getSize()) + 1);
         continue;
       }
 
@@ -109,9 +109,9 @@ class GameState {
   public boolean isSolvable() {
     if ((size % 2) == 1)
       return (Inversions() % 2 == 0);
-    else if (Inversions() % 2 == 0 && ((zeroPosition / size) + 1) % 2 == 1) {
+    else if (Inversions() % 2 == 0 && ((zeroPosition / size) ) % 2 == 1) {
       return true;
-    } else if (Inversions() % 2 == 1 && ((zeroPosition / size) + 1) % 2 == 0) {
+    } else if (Inversions() % 2 == 1 && ((zeroPosition / size) ) % 2 == 0) {
       return true;
     } else
       return false;
