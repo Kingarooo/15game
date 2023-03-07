@@ -25,7 +25,7 @@ public class main {
             if (modoPesquisa.equals("DFS")) {
                 if (board.isSolvable() == goalboard.isSolvable()) {
                     DFS dfs = new DFS(board, goalboard);
-                    dfs.searchDFS();
+                    dfs.search();
                 } else {
                     System.out.println("No solution");
                     return;

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 class Greedy {
-  public LinkedList<Node> queue;
+  public LinkedList<Node> list;
   private GameState initial;
   private GameState goal;
 
@@ -15,6 +15,7 @@ class Greedy {
   public Greedy(GameState initial, GameState goal) {
     this.initial = initial;
     this.goal = goal;
+    this.list = new LinkedList<Node>();
   }
 
   int manhattanDistance(GameState state) {
@@ -31,8 +32,8 @@ class Greedy {
     }
     return distance;
   }
-  
-  int misplaced (GameState state) {
+
+  int misplaced(GameState state) {
     int count = 0;
     for (int i = 0; i < state.getSize() * state.getSize(); i++) {
       int value = state.at(i);
@@ -142,7 +143,7 @@ class DFS {
     this.mapa = new Stack<GameState>();
   }
 
-  public void searchDFS() {
+  public void search() {
     Stack<Node> stack = new Stack<Node>();
     stack.push(new Node(initial));
     while (!stack.isEmpty()) {
@@ -169,9 +170,6 @@ class DFS {
       // ++gerados;
       // stack.push(tabu);
     }
-    if (stack.size() > 10) {
-      mapa = new Stack<GameState>();
-      System.gc();
-    }
+
   }
 }
