@@ -1,6 +1,6 @@
 import java.util.Scanner;
-import java.util.Stack;
 import java.util.LinkedList;
+import java.util.Stack;
 
 class GameState {
   // constructor
@@ -109,9 +109,9 @@ class GameState {
   public boolean isSolvable() {
     if ((size % 2) == 1)
       return (Inversions() % 2 == 0);
-    else if (Inversions() % 2 == 0 && ((zeroPosition / size) ) % 2 == 1) {
+    else if (Inversions() % 2 == 0 && ((zeroPosition / size)) % 2 == 1) {
       return true;
-    } else if (Inversions() % 2 == 1 && ((zeroPosition / size) ) % 2 == 0) {
+    } else if (Inversions() % 2 == 1 && ((zeroPosition / size)) % 2 == 0) {
       return true;
     } else
       return false;
