@@ -101,15 +101,17 @@ class BFS {
       ++gerados; // increment number of generated states
 
       if (node.getState().equals(goal)) { // if goal found
+        int depth = 0;
         while (node.getParent() != null) { // while node has a parent
           System.out.println(node.getState().toString());
           node = node.getParent();
+          depth++;
         }
         System.out.println("Goal found!");
         System.out.println("Number of visited states: " + visited);
         System.out.println("Number of generated states: " + gerados);
         System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
-        System.out.println("Depth: " + node.getDepth());
+        System.out.println("Depth: " + depth);
         return;
       } else { // if goal not found
         LinkedList<Node> sucessors = new LinkedList<Node>();
