@@ -7,9 +7,7 @@ class Greedy {
   public LinkedList<Node> list;
   private GameState initial;
   private GameState goal;
-
-  private int expandedNodes = 0;
-  private int generatedNodes = 0;
+  private long startime;
 
   public Greedy(GameState initial, GameState goal) {
     this.initial = initial;
@@ -49,8 +47,33 @@ class Greedy {
     return count;
   }
 
-  public void search() {
+  private void printPath(Node node) {
+    int depth = 0;
+    while (node.getParent() != null) { // while node has a parent
+      System.out.println(node.getState().toString());
+      node = node.getParent();
+      depth++;
+    }
+    System.out.println("Goal found!");
+    System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
+    System.out.println("Depth: " + depth);
+  }
 
+  public void search() {
+    list.add(new Node(initial));
+    while (!list.isEmpty()) {
+      Node node = list.removeFirst();
+      if (node.getState().equals(goal)) {
+        printPath(node);
+        return;
+      } else {
+        LinkedList<Node> sucessors = new LinkedList<Node>();
+        sucessors = node.getState().getSuccessors();
+        for (Node sucessor : sucessors) {
+          list.add(sucessor);
+        }
+      }
+    }
   }
 }
 

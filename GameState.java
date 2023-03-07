@@ -166,4 +166,20 @@ class GameState {
     }
     return successors;
   }
+
+  public LinkedList<Node> getSuccessors() {
+    int[] moves = possibleMoves();
+    LinkedList<Node> successors = new LinkedList<Node>();
+    for (int i = 0; i < moves.length; i++) {
+      GameState newState = new GameState(this.size);
+      for (int j = 0; j < this.size * this.size; j++) {
+        newState.board[j] = this.board[j];
+      }
+      newState.board[zeroPosition] = newState.board[moves[i]];
+      newState.board[moves[i]] = 0;
+      newState.setZeroPosition(moves[i]);
+
+    }
+    return successors;
+  }
 }
