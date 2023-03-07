@@ -129,14 +129,12 @@ class BFS {
     while (!queue.isEmpty()) { // while queue is not empty
       Node node = queue.poll(); // get first element of queue
       // sleep 1 second
-      try {
-        Thread.sleep(100);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+      // try {
+      //   Thread.sleep(100);
+      // } catch (InterruptedException e) {
+      //   e.printStackTrace();
+      // }
 
-      System.out.println("NODE: ");
-      System.out.println(node.getState());
       if (!visited_states.contains(node.getState()))
         visited_states.add(node.getState());
 
@@ -146,9 +144,7 @@ class BFS {
       } else { // if goal not found
         LinkedList<Node> sucessors = new LinkedList<Node>();
         sucessors = node.getState().getSuccessors(visited_states);
-        System.out.println("-------Tabu sucessores-------");
         for (Node tabu : sucessors) { // for each sucessor of the current state
-          System.out.println(tabu.getState());
           tabu.setParent(node);
           queue.add(tabu);
         }
@@ -177,9 +173,11 @@ class DFS {
 
   public void search() {
     Stack<Node> stack = new Stack<Node>();
+    Stack < GameState> visited_states = new Stack<GameState>();
     stack.push(new Node(initial));
     while (!stack.isEmpty()) {
       Node node = stack.pop();
+      visited_states.add(node.getState());
       if (node.getState().equals(goal)) {
         while (node.getParent() != null) {
           System.out.println(node.getState().toString());
@@ -193,15 +191,18 @@ class DFS {
       } else {
         LinkedList<Node> successors = new LinkedList<Node>();
         ++visited;
-        // if (Node.getState().getSuccessors.size() == 0) {
+        if (node.getState().getSuccessors(visited_states).size() == 0) {
         // backtrack to the previous state
         continue;
       }
-      // for (Node tabu : successors) {
-      // tabu.setParent(node);
-      // ++gerados;
-      // stack.push(tabu);
+      for (Node tabu : successors) {
+      tabu.setParent(node);
+      ++gerados;
+      stack.push(tabu);
     }
 
   }
 }
+}
+}
+
