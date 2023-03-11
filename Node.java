@@ -8,7 +8,6 @@ class Node {
   Node(GameState state) {
     this.state = state;
     this.parent = null;
-
     this.depth = 0;
     this.cost = 0;
   }
