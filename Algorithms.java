@@ -2,6 +2,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.LinkedList;
+import java.util.HashMap;
 
 class Greedy {
   public LinkedList<Node> list;
@@ -96,8 +97,50 @@ class Astar {
 
   public void search() {
     queue.add(new Node(initial));
-  }
+    PriorityQueue<Node> queue = new PriorityQueue<Node>();
+    LinkedList<GameState> closed = new LinkedList<GameState>();
+    HashMap<GameState, Node> mapa = new HashMap<GameState, Node>();
+    // Node startNode = new Node(queue.poll(), 0);
+    // startNode.setGScore(0);
+    // startNode.setFScore(startNode.getGScore() + manhattanDistance(start, goal));
+    // queue.add(startNode);
+    // mapa.put(start, startNode);
+
+    // while (!queue.isEmpty()) {
+    //     Node current = queue.poll();
+    //     if (current.getState().equals(goal)) {
+    //         LinkedList<Node> path = new LinkedList<Node>();
+    //         path.add(current);
+    //         while (current.getState().equals(start) == false) {
+    //             current = mapa.get(current.getState()).getState().getParent();
+    //             path.addFirst(mapa.get(current.getState()));
+    //         }
+    //         return path;
+    //     }
+    //     closed.add(current.getState());
+    //     LinkedList<Node> successors = current.getState().getSuccessors(closed);
+    //     for (Node successor : successors) {
+    //         int tentativeGScore = current.getGScore() + 1;
+    //         Node successorNode = mapa.get(successor.getState());
+    //         if (successorNode == null) {
+    //             successorNode = successor;
+    //             mapa.put(successor.getState(), successorNode);
+    //         } else if (tentativeGScore >= successorNode.getGScore()) {
+    //             continue;
+    //         }
+    //         successorNode.getState().setParent(current);
+    //         successorNode.setGScore(tentativeGScore);
+    //         successorNode.setFScore(successorNode.getGScore() + manhattanDistance(successorNode.getState(), goal));
+    //         if (!open.contains(successorNode)) {
+    //             open.add(successorNode);
+    //         }
+    //     }
+    // }
+    // return null;
 }
+
+  }
+
 
 class BFS {
   public Queue<Node> queue = new LinkedList<>();
