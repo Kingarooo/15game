@@ -11,7 +11,7 @@ public class main {
         goalboard.read_board(in);
         System.out.println(modoPesquisa);
 
-        if (modoPesquisa == "DFS") {
+        if (modoPesquisa.equals("DFS")) {
             if (board.isSolvable() == goalboard.isSolvable()) {
                 DFS dfs = new DFS(board, goalboard);
                 dfs.search();
