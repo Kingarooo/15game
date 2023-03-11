@@ -17,6 +17,7 @@ class Greedy {
   }
 
   int manhattanDistance(GameState state) {
+
     int distance = 0;
     for (int i = 0; i < state.getSize() * state.getSize(); i++) {
       int value = state.at(i);
@@ -89,6 +90,7 @@ class Astar {
   public Queue<Node> queue2;
   private GameState initial;
   private GameState goal;
+  private long startime;
 
   private int expandedNodes = 0;
   private int generatedNodes = 0;
@@ -97,53 +99,130 @@ class Astar {
     this.queue = new PriorityQueue<Node>();
     this.initial = initial;
     this.goal = goal;
+    this.startime = System.currentTimeMillis();
   }
 
-  public void search() {
+  int manhattanDistance(GameState state) {
+
+    int distance = 0;
+    for (int i = 0; i < state.getSize() * state.getSize(); i++) {
+      int value = state.at(i);
+      if (value != 0) {
+        int row = i / state.getSize();
+        int col = i % state.getSize();
+        int goalRow = (value - 1) / this.goal.getSize();
+        int goalCol = (value - 1) % this.goal.getSize();
+        distance += Math.abs(row - goalRow) + Math.abs(col - goalCol);
+      }
+    }
+    return distance;
+  }
+
+  int misplaced(GameState state) {
+    int count = 0;
+    for (int i = 0; i < state.getSize() * state.getSize(); i++) {
+      int value = state.at(i);
+      if (value != 0) {
+        int row = i / state.getSize();
+        int col = i % state.getSize();
+        int goalRow = (value - 1) / this.goal.getSize();
+        int goalCol = (value - 1) % this.goal.getSize();
+        if (row != goalRow || col != goalCol) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  private void printPath(Node node) {
+    int depth = 0;
+    while (node.getParent() != null) { // while node has a parent
+      System.out.println(node.getState().toString());
+      node = node.getParent();
+      depth++;
+    }
+    System.out.println("Goal found!");
+    System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
+    System.out.println("Depth: " + depth);
+  }
+
+  public void search(String mode) {
     queue.add(new Node(initial));
     PriorityQueue<Node> queue = new PriorityQueue<Node>();
-    LinkedList<GameState> closed = new LinkedList<GameState>();
+    LinkedList<GameState> visited = new LinkedList<GameState>();
     HashMap<GameState, Node> mapa = new HashMap<GameState, Node>();
     Node startNode = new Node(queue.poll().getState(), 0);
-    startNode.set(startNode. + manhattanDistance(start, goal));
+    int flag = 0;
+    if (mode == "Manhattan") {
+      flag = 0;
+    } else if (mode == "Misplaced") {
+      flag = 1;
+    }
+    // adiciono o primeiro node na queue e no mapa
     queue.add(startNode);
-    mapa.put(start, startNode);
+    mapa.put(startNode.getState(), startNode);
+System.out.println("Goal: "+ goal.toString());
 
     while (!queue.isEmpty()) {
-        Node current = queue.poll();
-        if (current.getState().equals(goal)) {
-            LinkedList<Node> path = new LinkedList<Node>();
-            path.add(current);
-            while (current.getState().equals(start) == false) {
-                current = mapa.get(current.getState()).getState().getParent();
-                path.addFirst(mapa.get(current.getState()));
-            }
-            return path;
+      Node current = queue.poll();
+      if (current.getState().equals(goal)) {
+        LinkedList<Node> path = new LinkedList<Node>();
+        path.add(current);
+        while (current.getState().equals(goal) == false) {
+          current = mapa.get(current.getState()).getParent();
+          path.addFirst(mapa.get(current.getState()));
         }
-        closed.add(current.getState());
-        LinkedList<Node> successors = current.getState().getSuccessors(closed);
-        for (Node successor : successors) {
-            int tentativeGScore = current.getGScore() + 1;
-            Node successorNode = mapa.get(successor.getState());
-            if (successorNode == null) {
-                successorNode = successor;
-                mapa.put(successor.getState(), successorNode);
-            } else if (tentativeGScore >= successorNode.getGScore()) {
-                continue;
-            }
-            successorNode.getState().setParent(current);
-            successorNode.setGScore(tentativeGScore);
-            successorNode.setFScore(successorNode.getGScore() + manhattanDistance(successorNode.getState(), goal));
-            if (!open.contains(successorNode)) {
-                open.add(successorNode);
-            }
-        }
-    }
-    return null;
-}
+        System.out.println("Goal found!");
+        printPath(path.getLast());
+        reconstructPath(current);
+      }
+      visited.add(current.getState());
 
+      LinkedList<Node> successors = current.getState().getSuccessors(visited);
+      int best = 0;
+      for (Node successor : successors) {
+        Node successorNode = mapa.get(successor.getState());
+        //fazer o custo do atual
+        best = current.getCost() + 1;
+        if (flag == 0)
+          successorNode.setCost(manhattanDistance(successorNode.getState()));
+        else if (flag == 1)
+          successorNode.setCost(misplaced(successorNode.getState()));
+        if (successorNode == null) {
+          successorNode = successor;
+          mapa.put(successor.getState(), successorNode);
+        } else if (best >= successorNode.getCost()) {
+          continue;
+        }
+        best = current.getCost() + 1;
+        successorNode.setParent(current);
+        successorNode.setCost(best);
+
+        if (!queue.contains(successorNode)) {
+          queue.add(successorNode);
+        }
+      }
+    }
+    System.out.println("Goal found!");
+
+    return;
   }
 
+  private static LinkedList<Node> reconstructPath(Node current) {
+    LinkedList<Node> path = new LinkedList<Node>();
+    while (current.getParent() != null) {
+      path.addFirst(current);
+      current = current.getParent();
+    }
+    path.addFirst(current);
+    System.out.println("Path: ");
+    for (Node node : path) {
+      System.out.println(node.getState().toString());
+    }
+    return path;
+  }
+}
 
 class BFS {
   public Queue<Node> queue = new LinkedList<>();
