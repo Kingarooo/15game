@@ -159,9 +159,7 @@ class GameState {
       newState.board[zeroPosition] = newState.board[moves[i]];
       newState.board[moves[i]] = 0;
       newState.setZeroPosition(moves[i]);
-      if (visited.contains(newState))
-        break;
-      else
+      if (!visited.contains(newState)) {
         successors.add(new Node(newState));
       }
     return successors;

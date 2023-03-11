@@ -151,7 +151,7 @@ class BFS {
 class DFS {
   private GameState initial;
   private GameState goal;
-  private Stack<Node> map; // map of visited states
+  private Stack<Node> map;
   private long startime;
 
   public DFS(GameState initial, GameState goal) {
@@ -171,6 +171,8 @@ class DFS {
     System.out.println("Goal found!");
     System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
     System.out.println("Depth: " + depth);
+    this.map = new Stack<Node>();
+    this.startime = System.currentTimeMillis();
   }
 
   public void search() {
