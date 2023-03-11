@@ -151,7 +151,7 @@ class BFS {
 class DFS {
   private GameState initial;
   private GameState goal;
-  private Stack<Node> map; // map of visited states
+  private Stack<Node> map;
   private long startime;
 
   public DFS(GameState initial, GameState goal) {
@@ -163,7 +163,7 @@ class DFS {
 
   private void printPath(Node node) {
     int depth = 0;
-    while (node.getParent() != null) { // while node has a parent
+    while (node.getParent() != null) {
       System.out.println(node.getState().toString());
       node = node.getParent();
       depth++;
@@ -173,25 +173,50 @@ class DFS {
     System.out.println("Depth: " + depth);
   }
 
-  public void search() {
+  public void search(int depth) {
     LinkedList<GameState> visited_states = new LinkedList<GameState>();
     map.push(new Node(initial));
-    while (!map.isEmpty()) {
-      Node node = map.pop();
-      node.getState().getSuccessors(visited_states);
-      if (!visited_states.contains(node.getState()))
-        visited_states.add(node.getState());
 
-      if (node.getState().equals(goal)) {
-        printPath(node);
-      } else {
-        LinkedList<Node> sucessors = new LinkedList<Node>();
-        sucessors = node.getState().getSuccessors(visited_states);
-        for (Node sucessor : sucessors) {
-          sucessor.setParent(node);
-          System.out.println(sucessor.getState());
-          map.push(sucessor);
-        }
+    Node node = map.peek();
+    // System.out.println(node);
+    // try {
+    // Thread.sleep(800);
+    // } catch (InterruptedException ex) {
+    // Thread.currentThread().interrupt();
+    // }
+    node.getState().getSuccessors(visited_states);
+    if (!visited_states.contains(node.getState()))
+      visited_states.add(node.getState());
+
+    if (node.getState().equals(goal)) {
+      printPath(node);
+      return;
+    } else {
+      LinkedList<Node> sucessors = new LinkedList<Node>();
+      sucessors = node.getState().getSuccessors(visited_states);
+      for (Node sucessor : sucessors) {
+        sucessor.setParent(node);
+        map.push(sucessor);
+        search(sucessor, visited_states, depth - 1);
+      }
+
+    }
+  }
+
+  public void search(Node sucessor, LinkedList<GameState> visited_states, int depth) {
+
+    if (sucessor.getState().equals(goal)) {
+      printPath(sucessor);
+      return;
+    } else if (depth == 0) {
+      return;
+    } else {
+      LinkedList<Node> sucessors = new LinkedList<Node>();
+      sucessors = sucessor.getState().getSuccessors(visited_states);
+      for (Node sucessor2 : sucessors) {
+        sucessor2.setParent(sucessor);
+        map.push(sucessor2);
+        search(sucessor2, visited_states, depth - 1);
       }
     }
   }
