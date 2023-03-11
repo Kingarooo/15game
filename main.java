@@ -43,6 +43,24 @@ public class main {
                     System.out.println("No solution");
                     return;
                 }
+            case "Greedy_Misplaced":
+                if (board.isSolvable() == goalboard.isSolvable()) {
+                    Greedy greedy = new Greedy(board, goalboard);
+                    greedy.search("Misplaced");
+                    return;
+                } else {
+                    System.out.println("No solution");
+                    return;
+                }
+            case "Greedy_Manhattan":
+                if (board.isSolvable() == goalboard.isSolvable()) {
+                    Greedy greedy = new Greedy(board, goalboard);
+                    greedy.search("Manhattan");
+                    return;
+                } else {
+                    System.out.println("No solution");
+                    return;
+                }
             default:
                 System.out.println("Invalid search algorithm selected.");
 

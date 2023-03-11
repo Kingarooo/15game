@@ -50,7 +50,7 @@ class Greedy {
 
   private void printPath(Node node) {
     int depth = 0;
-    while (node.getParent() != null) { // while node has a parent
+    while (node.getParent() != null) {
       System.out.println(node.getState().toString());
       node = node.getParent();
       depth++;
@@ -60,20 +60,24 @@ class Greedy {
     System.out.println("Depth: " + depth);
   }
 
-  public void search() {
+  public void search(String mode) {
+    LinkedList<GameState> visited_states = new LinkedList<GameState>();
     list.add(new Node(initial));
-    LinkedList<GameState> visited_states = new LinkedList<>();
     while (!list.isEmpty()) {
-      Node node = list.removeFirst();
-      visited_states.push(node.getState());
+      Node node = list.poll();
       if (node.getState().equals(goal)) {
         printPath(node);
         return;
-      } else {
-        LinkedList<Node> sucessors = new LinkedList<Node>();
-        sucessors = node.getState().getSuccessors(visited_states);
-        for (Node sucessor : sucessors) {
-          list.add(sucessor);
+      }
+      visited_states.add(node.getState());
+      LinkedList<Node> children = node.getState().getSuccessors(visited_states);
+      for (Node child : children) {
+        if (!visited_states.contains(child.getState())) {
+          if (mode.equals("misplaced")) {
+            list.add(new Node(child.getState(), misplaced(child.getState())));
+          } else if (mode.equals("manhattan")) {
+            list.add(new Node(child.getState(), manhattanDistance(child.getState())));
+          }
         }
       }
     }
