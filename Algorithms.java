@@ -1,15 +1,13 @@
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.LinkedList;
 import java.util.Stack;
+import java.util.LinkedList;
 
 class Greedy {
   public LinkedList<Node> list;
   private GameState initial;
   private GameState goal;
-
-  private int expandedNodes = 0;
-  private int generatedNodes = 0;
+  private long startime;
 
   public Greedy(GameState initial, GameState goal) {
     this.initial = initial;
@@ -49,8 +47,35 @@ class Greedy {
     return count;
   }
 
-  public void search() {
+  private void printPath(Node node) {
+    int depth = 0;
+    while (node.getParent() != null) { // while node has a parent
+      System.out.println(node.getState().toString());
+      node = node.getParent();
+      depth++;
+    }
+    System.out.println("Goal found!");
+    System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
+    System.out.println("Depth: " + depth);
+  }
 
+  public void search() {
+    list.add(new Node(initial));
+    LinkedList<GameState> visited_states = new LinkedList<>();
+    while (!list.isEmpty()) {
+      Node node = list.removeFirst();
+      visited_states.push(node.getState());
+      if (node.getState().equals(goal)) {
+        printPath(node);
+        return;
+      } else {
+        LinkedList<Node> sucessors = new LinkedList<Node>();
+        sucessors = node.getState().getSuccessors(visited_states);
+        for (Node sucessor : sucessors) {
+          list.add(sucessor);
+        }
+      }
+    }
   }
 }
 
@@ -101,7 +126,7 @@ class BFS {
   }
 
   public void search() { // search for a solution
-    Stack<GameState> visited_states = new Stack<GameState>();
+    LinkedList<GameState> visited_states = new LinkedList<GameState>();
     queue.offer(new Node(initial)); // add initial state to queue
     while (!queue.isEmpty()) { // while queue is not empty
       Node node = queue.poll(); // get first element of queue
@@ -125,54 +150,57 @@ class BFS {
           tabu.setParent(node);
           queue.add(tabu);
         }
-
       }
-
     }
-
   }
 }
 
 class DFS {
   private GameState initial;
   private GameState goal;
-  private Stack<GameState> mapa; // map of visited states
-  private long visited; // number of visited states
-  private long gerados; // number of generated states
+  private Stack<Node> map; // map of visited states
+  private long startime;
 
   public DFS(GameState initial, GameState goal) {
     this.initial = initial;
     this.goal = goal;
+    this.visited = 0;
+    this.gerados = 0;
     this.mapa = new Stack<GameState>();
   }
 
   public void search() {
     Stack<Node> stack = new Stack<Node>();
-    Stack<GameState> visited_states = new Stack<GameState>();
+    Stack < GameState> visited_states = new Stack<GameState>();
     stack.push(new Node(initial));
     while (!stack.isEmpty()) {
       Node node = stack.pop();
       visited_states.add(node.getState());
       if (node.getState().equals(goal)) {
-        // imprimir o caminho feito quando achar a solução
         while (node.getParent() != null) {
           System.out.println(node.getState().toString());
           node = node.getParent();
         }
         System.out.println("Goal found!");
+        System.out.println("Number of visited states: " + visited);
+        System.out.println("Number of generated states: " + gerados);
         System.out.println("Depth: " + node.getDepth());
         return;
       } else {
-        System.out.println(node.getState().toString());
         LinkedList<Node> successors = new LinkedList<Node>();
-        //test if the state is already in the stack
-        
-        successors = node.getState().getSuccessors(visited_states);
-        for (Node tabu : successors) {
-          tabu.setParent(node);
-          stack.push(tabu);
-        }
+        ++visited;
+        if (node.getState().getSuccessors(visited_states).size() == 0) {
+        // backtrack to the previous state
+        continue;
       }
+      for (Node tabu : successors) {
+      tabu.setParent(node);
+      ++gerados;
+      stack.push(tabu);
     }
+
   }
 }
+}
+}
+
