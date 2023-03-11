@@ -130,6 +130,13 @@ class BFS {
     queue.offer(new Node(initial)); // add initial state to queue
     while (!queue.isEmpty()) { // while queue is not empty
       Node node = queue.poll(); // get first element of queue
+      // sleep 1 second
+      // try {
+      // Thread.sleep(100);
+      // } catch (InterruptedException e) {
+      // e.printStackTrace();
+      // }
+
       if (!visited_states.contains(node.getState()))
         visited_states.add(node.getState());
 
@@ -218,6 +225,7 @@ class DFS {
         map.push(sucessor2);
         search(sucessor2, visited_states, depth - 1);
       }
+
     }
   }
 }
