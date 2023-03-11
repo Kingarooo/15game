@@ -14,7 +14,7 @@ public class main {
             case "DFS":
                 if (board.isSolvable() == goalboard.isSolvable()) {
                     DFS dfs = new DFS(board, goalboard);
-                    dfs.search(15);
+                    dfs.search(25);
                     return;
                 } else {
                     System.out.println("No solution");
@@ -22,9 +22,22 @@ public class main {
                 }
             case "BFS":
                 if (board.isSolvable() == goalboard.isSolvable()) {
-
                     BFS bfs = new BFS(board, goalboard);
                     bfs.search();
+                    return;
+                } else {
+                    System.out.println("No solution");
+                    return;
+                }
+
+            case "IDFS":
+                if (board.isSolvable() == goalboard.isSolvable()) {
+                    DFS idfs = new DFS(board, goalboard);
+                    for (int i = 1; i < 25; i++) {
+                        if (idfs.search(i)) {
+                            return;
+                        }
+                    }
                     return;
                 } else {
                     System.out.println("No solution");
