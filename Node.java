@@ -39,6 +39,14 @@ class Node {
     this.depth = depth;
   }
 
+  void setCost(int cost) {
+    this.cost = cost;
+  }
+
+  int getCost() {
+    return this.cost;
+  }
+
   int getDepth() {
     return this.depth;
   }
