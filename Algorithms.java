@@ -191,10 +191,6 @@ class DFS {
     // } catch (InterruptedException ex) {
     // Thread.currentThread().interrupt();
     // }
-    node.getState().getSuccessors(visited_states);
-    if (!visited_states.contains(node.getState()))
-      visited_states.add(node.getState());
-
     if (node.getState().equals(goal)) {
       printPath(node);
       return;
@@ -204,19 +200,23 @@ class DFS {
       for (Node sucessor : sucessors) {
         sucessor.setParent(node);
         map.push(sucessor);
-        search(sucessor, visited_states, depth - 1);
+        boolean res = search(sucessor, visited_states, depth - 1);
+        if (res) {
+          printPath(node);
+          break;
+        }
       }
 
     }
   }
 
-  public void search(Node sucessor, LinkedList<GameState> visited_states, int depth) {
+  public boolean search(Node sucessor, LinkedList<GameState> visited_states, int depth) {
 
     if (sucessor.getState().equals(goal)) {
       printPath(sucessor);
-      return;
+      return true;
     } else if (depth == 0) {
-      return;
+      return false;
     } else {
       LinkedList<Node> sucessors = new LinkedList<Node>();
       sucessors = sucessor.getState().getSuccessors(visited_states);
@@ -227,5 +227,7 @@ class DFS {
       }
 
     }
+    return false;
+
   }
 }
