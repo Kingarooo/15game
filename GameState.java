@@ -156,16 +156,13 @@ class GameState {
       for (int j = 0; j < this.size * this.size; j++) {
         newState.board[j] = this.board[j];
       }
-
       newState.board[zeroPosition] = newState.board[moves[i]];
       newState.board[moves[i]] = 0;
       newState.setZeroPosition(moves[i]);
       if (!visited.contains(newState)) {
         successors.add(new Node(newState));
       }
-
     }
     return successors;
   }
-
 }
