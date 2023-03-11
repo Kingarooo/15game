@@ -162,6 +162,7 @@ class GameState {
       if (!visited.contains(newState)) {
         successors.add(new Node(newState));
       }
+    }
     return successors;
   }
 }
