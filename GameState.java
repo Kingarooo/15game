@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.LinkedList;
-import java.util.Stack;
 
 class GameState {
   // constructor
@@ -120,11 +119,11 @@ class GameState {
   public int[] possibleMoves() {
     int[] moves = new int[4];
     int index = 0;
-    if (zeroPosition % size != 0) {
-      moves[index++] = zeroPosition - 1;
-    }
     if (zeroPosition % size != size - 1) {
       moves[index++] = zeroPosition + 1;
+    }
+    if (zeroPosition % size != 0) {
+      moves[index++] = zeroPosition - 1;
     }
     if (zeroPosition / size != 0) {
       moves[index++] = zeroPosition - size;
@@ -166,5 +165,3 @@ class GameState {
     return successors;
   }
 }
-
-

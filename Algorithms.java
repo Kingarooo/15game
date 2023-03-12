@@ -2,18 +2,33 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.LinkedList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 class Greedy {
-  public LinkedList<Node> list;
+  public PriorityQueue<Node> list;
   private GameState initial;
   private GameState goal;
   private long startime;
 
+  Comparator<Node> comparator = new Comparator<Node>() {
+    @Override
+    public int compare(Node n1, Node n2) {
+      if (n1.getCost() < n2.getCost()) {
+        return -1;
+      } else if (n1.getCost() > n2.getCost()) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  };
+
   public Greedy(GameState initial, GameState goal) {
     this.initial = initial;
     this.goal = goal;
-    this.list = new LinkedList<Node>();
+    this.list = new PriorityQueue<Node>(1, comparator);
+    this.startime = System.currentTimeMillis();
   }
 
   int manhattanDistance(GameState state) {
@@ -62,22 +77,28 @@ class Greedy {
   }
 
   public void search(String mode) {
+
     LinkedList<GameState> visited_states = new LinkedList<GameState>();
-    list.add(new Node(initial));
+    list.add(new Node(initial, 0));
     while (!list.isEmpty()) {
-      Node node = list.poll();
-      if (node.getState().equals(goal)) {
-        printPath(node);
+      Node current = list.poll();
+      if (current.getState().equals(goal)) {
+        printPath(current);
         return;
-      }
-      visited_states.add(node.getState());
-      LinkedList<Node> children = node.getState().getSuccessors(visited_states);
-      for (Node child : children) {
-        if (!visited_states.contains(child.getState())) {
-          if (mode.equals("misplaced")) {
-            list.add(new Node(child.getState(), misplaced(child.getState())));
-          } else if (mode.equals("manhattan")) {
-            list.add(new Node(child.getState(), manhattanDistance(child.getState())));
+      } else {
+
+        LinkedList<Node> children = current.getState().getSuccessors(visited_states);
+        for (Node child : children) {
+          if (!visited_states.contains(child.getState())) {
+            if (mode.equals("Misplaced")) {
+              child.setParent(current);
+              child.setCost(misplaced(child.getState()));
+              list.add(child);
+            } else if (mode.equals("Manhattan")) {
+              child.setParent(current);
+              child.setCost(manhattanDistance(child.getState()));
+              list.add(child);
+            }
           }
         }
       }
@@ -92,9 +113,6 @@ class Astar {
   private GameState initial;
   private GameState goal;
   private long startime;
-
-  private int expandedNodes = 0;
-  private int generatedNodes = 0;
 
   public Astar(GameState initial, GameState goal) {
     this.queue = new PriorityQueue<Node>();
@@ -163,7 +181,7 @@ class Astar {
     // adiciono o primeiro node na queue e no mapa
     queue.add(startNode);
     mapa.put(startNode.getState(), startNode);
-System.out.println("Goal: "+ goal.toString());
+    System.out.println("Goal: " + goal.toString());
 
     while (!queue.isEmpty()) {
       Node current = queue.poll();
@@ -184,7 +202,7 @@ System.out.println("Goal: "+ goal.toString());
       int best = 0;
       for (Node successor : successors) {
         Node successorNode = mapa.get(successor.getState());
-        //fazer o custo do atual
+        // fazer o custo do atual
         best = current.getCost() + 1;
         if (flag == 0)
           successorNode.setCost(manhattanDistance(successorNode.getState()));
