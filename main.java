@@ -70,7 +70,7 @@ public class main {
                     System.out.println("No solution");
                     return;
                 }
-                case "Astar_Misplaced":
+            case "Astar_Misplaced":
                 if (board.isSolvable() == goalboard.isSolvable()) {
                     Greedy greedy = new Greedy(board, goalboard);
                     greedy.search("Misplaced");
@@ -81,7 +81,6 @@ public class main {
                 }
             default:
                 System.out.println("Invalid search algorithm selected.");
-
         }
         in.close();
     }

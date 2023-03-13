@@ -64,15 +64,16 @@ class Greedy {
     return count;
   }
 
-  private void printPath(Node node) {
+  private void printPath(Node node, LinkedList<GameState> visited_states) {
     int depth = 0;
-    while (node.getParent() != null) {
+    while (node.getParent() != null) { // while node has a parent
       System.out.println(node.getState().toString());
       node = node.getParent();
       depth++;
     }
     System.out.println("Goal found!");
     System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
+    System.out.println("Memory: " + (visited_states.size() + depth) + " nodes");
     System.out.println("Depth: " + depth);
   }
 
@@ -83,11 +84,10 @@ class Greedy {
     while (!list.isEmpty()) {
       Node current = list.poll();
       if (current.getState().equals(goal)) {
-        printPath(current);
+        printPath(current, visited_states);
         return;
       } else {
-
-        LinkedList<Node> children = current.getState().getSuccessors(visited_states);
+        LinkedList<Node> children = current.getState().getSuccessors(current, visited_states);
         for (Node child : children) {
           if (!visited_states.contains(child.getState())) {
             if (mode.equals("Misplaced")) {
@@ -102,7 +102,6 @@ class Greedy {
           }
         }
       }
-
     }
   }
 }
@@ -154,7 +153,7 @@ class Astar {
     return count;
   }
 
-  private void printPath(Node node) {
+  private void printPath(Node node, LinkedList<GameState> visited_states) {
     int depth = 0;
     while (node.getParent() != null) { // while node has a parent
       System.out.println(node.getState().toString());
@@ -163,6 +162,7 @@ class Astar {
     }
     System.out.println("Goal found!");
     System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
+    System.out.println("Memory: " + (visited_states.size() + depth) + " nodes");
     System.out.println("Depth: " + depth);
   }
 
@@ -193,12 +193,12 @@ class Astar {
           path.addFirst(mapa.get(current.getState()));
         }
         System.out.println("Goal found!");
-        printPath(path.getLast());
+        printPath(path.getLast(), visited);
         reconstructPath(current);
       }
       visited.add(current.getState());
 
-      LinkedList<Node> successors = current.getState().getSuccessors(visited);
+      LinkedList<Node> successors = current.getState().getSuccessors(current, visited);
       int best = 0;
       for (Node successor : successors) {
         Node successorNode = mapa.get(successor.getState());
@@ -257,7 +257,7 @@ class BFS {
     this.startime = System.currentTimeMillis();
   }
 
-  private void printPath(Node node) {
+  private void printPath(Node node, LinkedList<GameState> visited_states) {
     int depth = 0;
     while (node.getParent() != null) { // while node has a parent
       System.out.println(node.getState().toString());
@@ -266,6 +266,7 @@ class BFS {
     }
     System.out.println("Goal found!");
     System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
+    System.out.println("Memory: " + (visited_states.size() + depth) + " nodes");
     System.out.println("Depth: " + depth);
   }
 
@@ -274,22 +275,15 @@ class BFS {
     queue.offer(new Node(initial)); // add initial state to queue
     while (!queue.isEmpty()) { // while queue is not empty
       Node node = queue.poll(); // get first element of queue
-      // sleep 1 second
-      // try {
-      // Thread.sleep(100);
-      // } catch (InterruptedException e) {
-      // e.printStackTrace();
-      // }
-
       if (!visited_states.contains(node.getState()))
         visited_states.add(node.getState());
 
       if (node.getState().equals(goal)) { // if goal found
-        printPath(node);
+        printPath(node, visited_states);
         return;
       } else { // if goal not found
         LinkedList<Node> sucessors = new LinkedList<Node>();
-        sucessors = node.getState().getSuccessors(visited_states);
+        sucessors = node.getState().getSuccessors(node, visited_states);
         for (Node tabu : sucessors) { // for each sucessor of the current state
           tabu.setParent(node);
           queue.add(tabu);
@@ -312,15 +306,17 @@ class DFS {
     this.startime = System.currentTimeMillis();
   }
 
-  private void printPath(Node node) {
+  private void printPath(Node node, LinkedList<GameState> visited_states) {
     int depth = 0;
-    while (node.getParent() != null) {
+    while (node.getParent() != null) { // while node has a parent
       System.out.println(node.getState().toString());
       node = node.getParent();
       depth++;
     }
     System.out.println("Goal found!");
     System.out.println("Time: " + (System.currentTimeMillis() - startime) + "ms");
+    System.out.println("Memory: " + (visited_states.size() + depth) + " nodes");
+
     System.out.println("Depth: " + depth);
   }
 
@@ -343,14 +339,14 @@ class DFS {
   public boolean search(Node sucessor, LinkedList<GameState> visited_states, int depth) {
 
     if (sucessor.getState().equals(goal)) {
-      printPath(sucessor);
+      printPath(sucessor, visited_states);
       return true;
     } else if (depth == 0) {
       return false;
     } else {
       visited_states.push(sucessor.getState());
       LinkedList<Node> sucessors = new LinkedList<Node>();
-      sucessors = sucessor.getState().getSuccessors(visited_states);
+      sucessors = sucessor.getState().getSuccessors(sucessor, visited_states);
       for (Node sucessor2 : sucessors) {
         sucessor2.setParent(sucessor);
         map.push(sucessor2);
