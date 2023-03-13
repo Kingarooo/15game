@@ -87,6 +87,7 @@ class Greedy {
         printPath(current, visited_states);
         return;
       } else {
+        visited_states.add(current.getState());
         LinkedList<Node> children = current.getState().getSuccessors(current, visited_states);
         for (Node child : children) {
           if (!visited_states.contains(child.getState())) {
