@@ -14,7 +14,7 @@ public class main {
             case "DFS":
                 if (board.isSolvable() == goalboard.isSolvable()) {
                     DFS dfs = new DFS(board, goalboard);
-                    dfs.search(16);
+                    dfs.search(25);
                     return;
                 } else {
                     System.out.println("No solution");
